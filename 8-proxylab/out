@@ -1,0 +1,34 @@
+free port: 3207
+A client come: fd = 4
+GET /tiny.c HTTP/1.0
+Accept: */*
+
+Host: localhost
+User-Agent: User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20120305 Firefox/10.0.3
+Connection: close
+Proxy-Connection: close
+
+--- client [4] disconnected ---
+A client come: fd = 5
+GET /home.html HTTP/1.0
+Accept: */*
+
+Host: localhost
+User-Agent: User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20120305 Firefox/10.0.3
+Connection: close
+Proxy-Connection: close
+
+--- client [5] disconnected ---
+A client come: fd = 4
+GET /csapp.c HTTP/1.0
+Accept: */*
+
+Host: localhost
+User-Agent: User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20120305 Firefox/10.0.3
+Connection: close
+Proxy-Connection: close
+
+--- client [4] disconnected ---
+A client come: fd = 5
+
+--- client [5] disconnected ---

