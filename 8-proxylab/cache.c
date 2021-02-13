@@ -31,22 +31,36 @@ void init_web_cache()
 void cache_webobj(const char *url, const char *buf, size_t total)
 {
     int index = 0, flag = 0;
-    for (int i = 0; i < N_CACHE; i++) {
-        pthread_rwlock_rdlock(&wobj[i].lock);
-        
+
+    pthread_rwlock_wrlock(&wobj[0].lock);
+    if (wobj[0].active != -1 && strcmp(wobj[0].url, url) == 0) {
+        flag = 1;
+        goto next;
+    }
+
+    for (int i = 1; i < N_CACHE; i++) {
+        //pthread_rwlock_rdlock(&wobj[i].lock);
+        pthread_rwlock_wrlock(&wobj[i].lock);
+
         if (wobj[i].active != -1 && strcmp(wobj[i].url, url) == 0) {
+            pthread_rwlock_unlock(&wobj[index].lock);
             index = i;
             flag = 1;
-            pthread_rwlock_unlock(&wobj[i].lock);
+            //pthread_rwlock_unlock(&wobj[i].lock);
             break;
         }
 
-        if (wobj[index].active > wobj[i].active) index = i;
+        if (wobj[index].active > wobj[i].active) {
+            pthread_rwlock_unlock(&wobj[index].lock);
+            index = i;
+            continue;
+        }
 
         pthread_rwlock_unlock(&wobj[i].lock);
     }
 
-    pthread_rwlock_wrlock(&wobj[index].lock);
+next:
+    //pthread_rwlock_wrlock(&wobj[index].lock);
 
     if (flag){
         wobj[index].active++;
